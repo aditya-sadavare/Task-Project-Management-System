@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: task-management-app
+    env: docker
+    dockerfilePath: ./Dockerfile
+    plan: starter
+    healthCheckPath: /api
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
+      - key: DB_HOST
+        scope: shared-env
+      - key: DB_PORT
+        scope: shared-env
+      - key: DB_NAME
+        scope: shared-env
+      - key: DB_USER
+        scope: shared-env
+      - key: DB_PASSWORD
+        scope: shared-env
+      - key: JWT_SECRET
+        scope: shared-env
+
+databases:
+  - name: task_management_db
+    databaseName: task_management_db
+    user: postgres
+    plan: starter
