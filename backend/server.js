@@ -1,5 +1,10 @@
 const dotenv = require('dotenv');
-dotenv.config();
+const path = require('path');
+const fs = require('fs');
+
+// Load .env.local if it exists (for local development), otherwise load .env
+const envFile = fs.existsSync(path.join(__dirname, '.env.local')) ? '.env.local' : '.env';
+dotenv.config({ path: path.join(__dirname, envFile) });
 
 const app = require('./app');
 
