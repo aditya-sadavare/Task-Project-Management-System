@@ -12,8 +12,10 @@ RUN npm install
 COPY frontend/src ./src
 COPY frontend/vite.config.js ./
 COPY frontend/index.html ./
+COPY frontend/.env.production ./
 
-# Build React app
+# Build React app with production environment
+ENV VITE_API_URL=/api
 RUN npm run build
 
 # Stage 2: Build backend with frontend assets
