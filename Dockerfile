@@ -32,7 +32,7 @@ COPY backend/ .
 RUN mkdir -p public
 COPY --from=frontend-builder /app/frontend/dist ./public
 
-# Create .env file template (will be overridden by Render env vars)
+# Set production environment
 ENV NODE_ENV=production
 ENV PORT=3000
 
