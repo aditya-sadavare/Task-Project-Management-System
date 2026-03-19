@@ -4,24 +4,26 @@ FROM node:18-alpine AS frontend-builder
 
 WORKDIR /app/frontend
 
-# Copy frontend files
+# Copy frontend files and .env
 COPY frontend/package*.json ./
+COPY frontend/.env ./
 RUN npm install
 
 # Copy source code
 COPY frontend/src ./src
 COPY frontend/vite.config.js ./
 COPY frontend/index.html ./
-COPY frontend/.env.production ./
 
-# Build React app with production environment
-ENV VITE_API_URL=/api
+# Build React app (uses .env for VITE_API_URL)
 RUN npm run build
 
 # Stage 2: Build backend with frontend assets
 FROM node:18-alpine
 
 WORKDIR /app
+
+# Copy backend .env
+COPY backend/.env .
 
 # Install backend dependencies
 COPY backend/package*.json ./
